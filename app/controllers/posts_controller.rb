@@ -1,10 +1,16 @@
 class PostsController < ApplicationController
+  before_action :authenticate_user!
+   def index
+     render :index
+   end
+  
+  
   def new
     render:new
   end
   
-  def index
-    render:index
+  def create
+    redirect_to new_post_path
   end
   
 end
