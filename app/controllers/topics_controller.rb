@@ -1,6 +1,13 @@
 class TopicsController < ApplicationController
   def index
-    @topics = Topic.all
+    @title = params[:title]
+    if @title.present?
+      @topics = Topic.where('title LIKE?',"%#{@title}%")
+    else
+      @topics = Topic.all
+    end 
+    
+     render :index
   end
   
   def new
