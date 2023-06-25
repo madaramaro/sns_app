@@ -1,3 +1,28 @@
-<div>
-<h1>スレッド編集</h1>
-</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 mx-auto post-form-container">
+      <h2 class="h2">スレッド編集</h2>
+      <%= form_with(url: update_topic_path,model:@topic,local: true,method: :post,html:{ class:'post-form'})do |f| %>
+      
+      <% if @topic.errors.any? %>
+       <ul>
+         <% @topic.errors.full_messages.each do |message| %>
+         <li><%= message %></li>
+         <% end %></ul>
+      <% end %>
+      
+      <div class="form-group">
+        <%=f.label"タイトル",class:'form-label' %>
+        <%=f.text_field:body,value: @topic.body,class:'form-control' %>
+      </div>
+      
+      <div class="button-group">
+       <%= link_to'削除',"/topics/destroy/#{@topic.id}",method: :delete, data: { confirm: '本当に削除しますか？'},class:"btn btn-danger" %>
+       <%= f.submit'更新',class:'btn btn-primary' %>
+      </div>
+      <%end%>
+      </div>
+      </div>
+      </div>
+      

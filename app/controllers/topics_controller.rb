@@ -1,4 +1,7 @@
 class TopicsController < ApplicationController
+  before_action :authenticate_user!
+  #before_action :set_topic, only: [:edit, :update, :destroy] 必要？
+  
   def index
     @title = params[:title]
     if @title.present?
@@ -30,12 +33,19 @@ class TopicsController < ApplicationController
     @topic = Topic.find(params[:id])
     render :edit
   end
+  
+  def destroy
+    @topic = Topic.find(params[:id])
+    @topic.destroy
+    redirect_to topics_path, notice:'削除しました'
+  end
+    
 
   def update
     @topic = Topic.find(params[:id])
     
     if @topic.update(topic_params)
-    　redirect_to topics_path, notice: '更新しました'
+     redirect_to topics_path, notice: '更新しました'
     else
       render :edit, status: :unprocessable_entity
     end
